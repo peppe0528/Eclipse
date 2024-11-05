@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>レビュー一覧</title>
+</head>
+<body>
+    <h1>レビュー一覧</h1>
+
+    <div th:if="${reviews.isEmpty()}">
+        <p>まだレビューがありません。</p>
+    </div>
+    
+    <div th:if="${!reviews.isEmpty()}">
+        <ul>
+            <li th:each="review : ${reviews}">
+                <h2 th:text="${review.title}"></h2>
+                <p th:text="${review.content}"></p>
+                <p>投稿日時: <span th:text="${#dates.format(review.createdAt, 'yyyy/MM/dd HH:mm')}"></span></p>
+                <p>投稿者ID: <span th:text="${review.userId}"></span></p>
+                <a th:href="@{/reviews/{id}(id=${review.id})}">詳細を見る</a>
+            </li>
+        </ul>
+    </div>
+
+    <div th:if="${isLoggedIn}">
+        <h2>レビューを投稿する</h2>
+        <div th:if="${hasPostedReview}">
+            <p>すでにレビューを投稿済みです。</p>
+        </div>
+        <div th:if="${!hasPostedReview}">
+            <form th:action="@{/reviews}" th:object="${reviewForm}" method="post">
+                <input type="text" th:field="*{title}" placeholder="タイトル" required />
+                <textarea th:field="*{content}" placeholder="内容" required></textarea>
+                <button type="submit">投稿</button>
+            </form>
+        </div>
+    </div>
+    <div th:if="${!isLoggedIn}">
+        <p>レビューを投稿するには<a th:href="@{/login}">ログイン</a>してください。</p>
+    </div>
+</body>
+</html>

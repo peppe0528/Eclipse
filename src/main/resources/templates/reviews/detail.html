@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>レビュー詳細</title>
+</head>
+<body>
+    <h1>レビュー詳細</h1>
+    <h2 th:text="${review.title}"></h2>
+    <p th:text="${review.content}"></p>
+    <p>投稿日時: <span th:text="${#dates.format(review.createdAt, 'yyyy/MM/dd HH:mm')}"></span></p>
+    <p>投稿者ID: <span th:text="${review.userId}"></span></p>
+    <a th:href="@{/reviews}">レビュー一覧に戻る</a>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:java8time="http://www.thymeleaf.org/thymeleaf-extras-java8time">
 
 <head>
 	<div th:replace="~{fragment :: meta}"></div>
@@ -123,9 +124,9 @@
 												<h3 th:text="${review.title}" class="fw-bold mb-1"></h3>
 												<p th:text="${review.content}" class="mb-1"></p>
 												<p class="text-muted small">
-													投稿日時: <span
-														th:text="${#dates.format(review.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
-													/ 投稿者ID: <span th:text="${review.userId}"></span>
+												    投稿日時: <span th:if="${review.createdAt != null}" th:text="${#java8time.format(review.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
+												    <span th:if="${review.createdAt == null}">日時未設定</span>
+												    / 投稿者ID: <span th:text="${review.userId}"></span>
 												</p>
 											</li>
 										</ul>

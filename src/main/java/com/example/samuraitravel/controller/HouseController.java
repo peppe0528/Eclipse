@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.entity.Review;
 import com.example.samuraitravel.entity.User;
+import com.example.samuraitravel.form.ReservationInputForm;
 import com.example.samuraitravel.form.ReviewForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.service.ReviewService;
@@ -41,8 +42,6 @@ public class HouseController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
     public HouseController(HouseRepository houseRepository) {
         this.houseRepository = houseRepository;
     }
@@ -98,6 +97,7 @@ public class HouseController {
         model.addAttribute("house", house);
         model.addAttribute("reviews", reviews);
         model.addAttribute("reviewForm", new ReviewForm());
+        model.addAttribute("reservationInputForm", new ReservationInputForm());
 
         if (principal != null) {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
